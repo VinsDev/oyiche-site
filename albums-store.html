@@ -16,6 +16,28 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    <style>
+        .spotify-albums {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 4rem 1rem;
+        }
+
+        .spotify-albums iframe {
+            max-width: 100%;
+            height: 380px;
+        }
+
+        @media (max-width: 640px) {
+            .spotify-albums iframe {
+                width: 100%;
+                height: 380px;
+                margin-top: 2rem;
+            }
+        }
+    </style>
 
 </head>
 
@@ -98,8 +120,12 @@
     </section>
     <!-- ##### Breadcumb Area End ##### -->
 
-    <div class="row justify-content-center" style="margin-top: 4rem; margin-bottom: 8rem;">
+    <div class="spotify-albums">
         <iframe src="https://open.spotify.com/embed/album/6XeIkswgcdsPIEDInL0VRS" width="300" height="380"
+            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        <iframe src="https://open.spotify.com/embed/album/56NqUtakzaVRKOXvtlycYe" width="300" height="380"
+            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+            <iframe src="https://open.spotify.com/embed/album/22rOjbIatASV06Em8LYWLa" width="300" height="380"
             frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
     </div>
 
