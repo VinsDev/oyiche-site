@@ -16,6 +16,20 @@
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+    <style>
+        @media (max-width: 767px) {
+            .video-container {
+                margin-left: 8px;
+                margin-right: 8px;
+            }
+
+            .video-container iframe {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 16 / 9;
+            }
+        }
+    </style>
 
 </head>
 
@@ -144,16 +158,19 @@
             <div class="row">
                 <div class="col-12">
                     <div class="section-heading style-2">
-                        <p>See what’s new</p>
                         <h2>Latest Hits</h2>
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
+            <div class="row justify-content-center video-container">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/94fE4knZpMk" frameborder="0"
+                    allowfullscreen></iframe>
+            </div>
+            <div class="row justify-content-center video-container" style="margin-top: 4rem;">
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/U8uzzBtAf7E" frameborder="0"
                     allowfullscreen></iframe>
             </div>
-            <div class="row justify-content-center" style="margin-top: 4rem;">
+            <div class="row justify-content-center video-container" style="margin-top: 4rem;">
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/oyxvje3m2Dg" frameborder="0"
                     allowfullscreen></iframe>
             </div>
