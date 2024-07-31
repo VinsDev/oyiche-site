@@ -17,7 +17,7 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
     <style>
-        .spotify-albums {
+        .music-albums {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -25,17 +25,22 @@
             padding: 2rem 1rem 1rem 1rem;
         }
 
-        .spotify-albums iframe {
+        .music-player iframe {
             max-width: 100%;
             height: 380px;
         }
 
         @media (max-width: 640px) {
-            .spotify-albums iframe {
+            .music-player iframe {
                 width: 100%;
                 height: 380px;
                 margin-top: 2rem;
             }
+        }
+
+        /* Specific adjustment for Audiomack */
+        .music-player[data-service="audiomack"] iframe {
+            height: 400px;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -139,25 +144,13 @@
     </section>
     <!-- ##### Breadcumb Area End ##### -->
 
-    <div class="spotify-albums">
-        <iframe src="https://open.spotify.com/embed/album/6XeIkswgcdsPIEDInL0VRS" width="300" height="380"
-            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-        <iframe src="https://open.spotify.com/embed/album/56NqUtakzaVRKOXvtlycYe" width="300" height="380"
-            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-        <iframe src="https://open.spotify.com/embed/album/22rOjbIatASV06Em8LYWLa" width="300" height="380"
-            frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-
-    </div>
-
-    <div class="spotify-albums">
-        <iframe src="https://embed.music.apple.com/ng/album/blood-sweat-love-ep/1721166798" width="300" height="380"
-            allow="autoplay *; encrypted-media *; fullscreen *"
-            sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"></iframe>
-    </div>
-
-    <div class="spotify-albums">
-        <iframe src="https://audiomack.com/embed/Swaggomayana/album/blood-sweat-love" scrolling="no" width="100%"
-            height="400" frameborder="0" title="Blood, Sweat & Love"></iframe>
+    <div class="music-albums">
+        <div class="music-player" data-service="spotify" data-id="6XeIkswgcdsPIEDInL0VRS"></div>
+        <div class="music-player" data-service="spotify" data-id="56NqUtakzaVRKOXvtlycYe"></div>
+        <div class="music-player" data-service="spotify" data-id="22rOjbIatASV06Em8LYWLa"></div>
+        <div class="music-player" data-service="apple" data-id="1721166798"></div>
+        <div class="music-player" data-service="audiomack" data-artist="Swaggomayana" data-album="blood-sweat-love">
+        </div>
     </div>
 
 
@@ -254,6 +247,48 @@
     <script src="js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
+
+    <script>
+        function loadMusicPlayers() {
+            var playerElements = document.querySelectorAll('.music-player');
+            for (var n = 0; n < playerElements.length; n++) {
+                var service = playerElements[n].dataset.service;
+                var iframe = document.createElement('iframe');
+
+                switch (service) {
+                    case 'spotify':
+                        var albumId = playerElements[n].dataset.id;
+                        iframe.setAttribute('src', 'https://open.spotify.com/embed/album/' + albumId);
+                        iframe.setAttribute('allowtransparency', 'true');
+                        iframe.setAttribute('allow', 'encrypted-media');
+                        iframe.style.height = '380px';
+                        break;
+                    case 'apple':
+                        var albumId = playerElements[n].dataset.id;
+                        iframe.setAttribute('src', 'https://embed.music.apple.com/ng/album/' + albumId);
+                        iframe.setAttribute('allow', 'autoplay *; encrypted-media *; fullscreen *');
+                        iframe.setAttribute('sandbox', 'allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation');
+                        iframe.style.height = '380px';
+                        break;
+                    case 'audiomack':
+                        var artist = playerElements[n].dataset.artist;
+                        var album = playerElements[n].dataset.album;
+                        iframe.setAttribute('src', 'https://audiomack.com/embed/' + artist + '/album/' + album);
+                        iframe.setAttribute('scrolling', 'no');
+                        iframe.setAttribute('title', album);
+                        iframe.style.height = '400px';
+                        break;
+                }
+
+                iframe.setAttribute('frameborder', '0');
+                iframe.style.width = '100%';
+                playerElements[n].appendChild(iframe);
+            }
+        }
+
+        window.onload = loadMusicPlayers;
+    </script>
+
 </body>
 
 </html>

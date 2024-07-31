@@ -31,7 +31,36 @@
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .fullscreen-video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            /* This ensures the video stays behind other content */
+        }
 
+        .fullscreen-video-container video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
+        }
+
+        /* Ensure the rest of your content sits on top of the video */
+        body {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
 </head>
 
 <body>
@@ -128,7 +157,7 @@
             <!-- Single Hero Slide -->
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
-                <div class="slide-img bg-img" style="background-image: url(img/bg-img/bg-1.jpg);"></div>
+                <div class="slide-img bg-img" style="background-image: url(img/bg-img/bg-aa.jpeg);"></div>
                 <!-- Slide Content -->
                 <div class="container">
                     <div class="row">
@@ -137,8 +166,9 @@
                                 <h6 data-animation="fadeInUp" data-delay="100ms">Latest album</h6>
                                 <h2 data-animation="fadeInUp" data-delay="300ms">BLOOD, SWEAT & LOVE<span>BLOOD, SWEAT &
                                         LOVE</span></h2>
-                                <a data-animation="fadeInUp" data-delay="500ms" href="albums-store.html"
-                                    class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
+                                <a data-animation="fadeInUp" data-delay="500ms"
+                                    href="https://songwhip.com/swaggomayana/blood-sweat-and-love" target="_blank"
+                                    class="btn oneMusic-btn mt-50">Listen <i class="fa fa-angle-double-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -148,16 +178,24 @@
             <!-- Single Hero Slide -->
             <div class="single-hero-slide d-flex align-items-center justify-content-center">
                 <!-- Slide Img -->
-                <div class="slide-img bg-img" style="background-image: url(img/bg-img/bg-2.jpg);"></div>
+                <div class="fullscreen-video-container">
+                    <video autoplay loop muted playsinline>
+                        <source src="video/vid.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
                 <!-- Slide Content -->
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
                             <div class="hero-slides-content text-center">
-                                <h6 data-animation="fadeInUp" data-delay="100ms">Music album</h6>
-                                <h2 data-animation="fadeInUp" data-delay="300ms">HOWEVER <span>HOWEVER</span></h2>
-                                <a data-animation="fadeInUp" data-delay="500ms" href="albums-store.html"
-                                    class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
+                                <h6 data-animation="fadeInUp" data-delay="100ms">Music Single</h6>
+                                <h2 data-animation="fadeInUp" data-delay="300ms">LOVE FROM A DISTANCE <span>LOVE FROM A
+                                        DISTANCE</span></h2>
+                                <a data-animation="fadeInUp" data-delay="500ms"
+                                    href="https://www.youtube.com/watch?v=94fE4knZpMk" target="_blank"
+                                    class="btn oneMusic-btn mt-50">Watch Now <i
+                                        class="fa fa-angle-double-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -178,6 +216,7 @@
                 </div>
             </div>
             <div class="row justify-content-center video-container">
+                <!-- <div class="youtube-player" data-id="94fE4knZpMk"></div> -->
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/94fE4knZpMk" frameborder="0"
                     allowfullscreen></iframe>
             </div>
@@ -314,6 +353,26 @@
     <script src="js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
+
+    <script>
+        function loadYouTubeVideos() {
+            var playerElements = document.querySelectorAll('.youtube-player');
+            for (var n = 0; n < playerElements.length; n++) {
+                var videoId = playerElements[n].dataset.id;
+                var iframe = document.createElement('iframe');
+                iframe.setAttribute('src', 'https://www.youtube.com/embed/' + videoId);
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('allowfullscreen', '1');
+                iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                playerElements[n].appendChild(iframe);
+            }
+        }
+
+        // Use window.onload to ensure all resources are loaded before running the script
+        window.onload = loadYouTubeVideos;
+    </script>
 </body>
 
 </html>

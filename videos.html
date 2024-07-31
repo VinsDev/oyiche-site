@@ -35,6 +35,62 @@
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <style>
+        .youtube-player {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            max-width: 100%;
+            background: #000;
+            margin: 5px;
+        }
+
+        .youtube-player iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+            background: transparent;
+        }
+
+        .youtube-player img {
+            object-fit: cover;
+            display: block;
+            left: 0;
+            bottom: 0;
+            margin: auto;
+            max-width: 100%;
+            width: 100%;
+            position: absolute;
+            right: 0;
+            top: 0;
+            border: none;
+            height: auto;
+            cursor: pointer;
+            -webkit-transition: 0.4s all;
+            -moz-transition: 0.4s all;
+            transition: 0.4s all;
+        }
+
+        .youtube-player img:hover {
+            -webkit-filter: brightness(75%);
+        }
+
+        .youtube-player .play {
+            height: 48px;
+            width: 68px;
+            left: 50%;
+            top: 50%;
+            margin-left: -34px;
+            margin-top: -24px;
+            position: absolute;
+            background: url('https://i.ibb.co/j3jcJKv/yt.png') no-repeat;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -141,24 +197,21 @@
                 <!-- Single Event Area -->
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/94fE4knZpMk" frameborder="0"
-                            allowfullscreen></iframe>
+                        <div class="youtube-player" data-id="94fE4knZpMk"></div>
                     </div>
                 </div>
 
                 <!-- Single Event Area -->
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/U8uzzBtAf7E" frameborder="0"
-                            allowfullscreen></iframe>
+                        <div class="youtube-player" data-id="U8uzzBtAf7E"></div>
                     </div>
                 </div>
 
                 <!-- Single Event Area -->
                 <div class="col-12 col-md-6 col-lg-4 mb-4">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/oyxvje3m2Dg" frameborder="0"
-                            allowfullscreen></iframe>
+                        <div class="youtube-player" data-id="oyxvje3m2Dg"></div>
                     </div>
                 </div>
             </div>
@@ -283,6 +336,26 @@
     <script src="js/plugins/plugins.js"></script>
     <!-- Active js -->
     <script src="js/active.js"></script>
+
+    <script>
+        function loadYouTubeVideos() {
+            var playerElements = document.querySelectorAll('.youtube-player');
+            for (var n = 0; n < playerElements.length; n++) {
+                var videoId = playerElements[n].dataset.id;
+                var iframe = document.createElement('iframe');
+                iframe.setAttribute('src', 'https://www.youtube.com/embed/' + videoId);
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('allowfullscreen', '1');
+                iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                playerElements[n].appendChild(iframe);
+            }
+        }
+    
+        // Use window.onload to ensure all resources are loaded before running the script
+        window.onload = loadYouTubeVideos;
+    </script>
 </body>
 
 </html>
